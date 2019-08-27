@@ -1,6 +1,5 @@
 class Player {
   constructor() {}
-  preload() {}
   setup() {
     this.x = 100;
     this.y = 100;
@@ -9,8 +8,8 @@ class Player {
     this.sprite.addAnimation("idle", animationIdle);
     this.sprite.addAnimation("left", animationLeft);
     this.sprite.addAnimation("right", animationRight);
-    this.sprite.addAnimation("shiftLeft", animationTurboLeft);
-    this.sprite.addAnimation("shiftRight", animationTurboRight);
+    // this.sprite.addAnimation("shiftLeft", animationTurboLeft);
+    // this.sprite.addAnimation("shiftRight", animationTurboRight);
     this.sprite.scale = 3;
     this.fired = false;
   }
@@ -40,18 +39,16 @@ class Player {
     } else {
       this.velocity = 2;
     }
-  }
-  keyPressed() {
-    if (keyCode === 32) {
-      if (!this.fired) {
-        game.rockets.push(
-          new Rocket(this.sprite.position.x, this.sprite.position.y)
-        );
-        this.fired = true;
-        setTimeout(() => {
-          this.fired = false;
-        }, 500);
-      }
-    }
-  }
-}
+  }};
+  // keyPressed() {
+  //   if (keyCode === 32) {
+  //     if (!this.fired) {
+  //       game.rockets.push(
+  //         new Rocket(this.sprite.position.x, this.sprite.position.y)
+  //       );
+  //       this.fired = true;
+  //       setTimeout(() => {
+  //         this.fired = false;
+  //       }, 500);
+      
+

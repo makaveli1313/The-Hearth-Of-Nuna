@@ -7,8 +7,10 @@ let animationBig,
   animationIdle,
   animationLeft,
   animationRight,
+  animationPulse,
   explosionSprite,
-  explosionAnimation;
+  explosionAnimation,
+  spriteRocket;
 
 let shipsArr;
 
@@ -27,6 +29,13 @@ let playerFrames = [
   { name: "right_02", frame: { x: 64, y: 0, width: 16, height: 24 } },
   { name: "propulsion_right02", frame: { x: 64, y: 24, width: 16, height: 24 } }
 ];
+
+let rocketFrames = [
+  { name: "pulse", frame: { x: 0, y: 0, width: 16, height: 16 } },
+  { name: "pulse_01", frame: { x: 16, y: 0, width: 16, height: 16 } },
+  { name: "rocket", frame: { x: 0, y:16, width: 16, height: 16 } },
+  { name: "rocket_01", frame: { x: 16, y: 16, width: 16, height: 16 } }
+]
 
 function preload() {
   animationIdle = loadSpriteSheet(
@@ -74,4 +83,7 @@ function preload() {
   );
   shipsArr = [animationSmall, animationMed, animationBig];
   explosionAnimation = loadAnimation(explosionSprite);
+  spritePulse = loadSpriteSheet("/assets/spritesheets/laser-bolts.png",rocketFrames.slice(0,2));
+  animationPulse = loadAnimation(spritePulse);
+
 }

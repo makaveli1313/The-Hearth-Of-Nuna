@@ -12,5 +12,5 @@ function draw() {
 }
 
 function keyPressed() {
-  game.player.keyPressed();
+  game.keyPressed();
 }
