@@ -1,9 +1,77 @@
-// let imgPlayer, imgBackground, imgCloudTrans, imgCloud;
+let animationBig,
+  spriteBig,
+  animationMed,
+  spriteMed,
+  animationSmall,
+  spriteSmall,
+  animationIdle,
+  animationLeft,
+  animationRight,
+  explosionSprite,
+  explosionAnimation;
 
-// function preload() {
-//   imgBackground = loadImage("/assets/backgrounds/desert-backgorund.png");
-//   imgCloudTrans = loadImage("/assets/backgrounds/clouds-transparent.png");
-//   imgCloud = loadImage("/assets/backgrounds/clouds.png");
-  
-// }
+let shipsArr;
 
+let playerFrames = [
+  { name: "left_01", frame: { x: 0, y: 0, width: 16, height: 24 } },
+  { name: "propulsion_left01", frame: { x: 0, y: 24, width: 16, height: 24 } },
+  { name: "left_02", frame: { x: 16, y: 0, width: 16, height: 24 } },
+  { name: "propulsion_left02", frame: { x: 16, y: 24, width: 16, height: 24 } },
+  { name: "propulsion_idle01", frame: { x: 32, y: 0, width: 16, height: 24 } },
+  { name: "propulsion_idle02", frame: { x: 32, y: 24, width: 16, height: 24 } },
+  { name: "right_01", frame: { x: 48, y: 0, width: 16, height: 24 } },
+  {
+    name: "propulsion_right01",
+    frame: { x: 48, y: 24, width: 16, height: 24 }
+  },
+  { name: "right_02", frame: { x: 64, y: 0, width: 16, height: 24 } },
+  { name: "propulsion_right02", frame: { x: 64, y: 24, width: 16, height: 24 } }
+];
+
+function preload() {
+  animationIdle = loadSpriteSheet(
+    "/assets/spritesheets/ship.png",
+    playerFrames.slice(4, 6)
+  );
+  animationLeft = loadSpriteSheet(
+    "/assets/spritesheets/ship.png",
+    playerFrames.slice(0, 2)
+  );
+  animationRight = loadSpriteSheet(
+    "/assets/spritesheets/ship.png",
+    playerFrames.slice(6, 8)
+  );
+  // animationTurboLeft = loadSpriteSheet(
+  //   "/assets/spritesheets/ship.png",
+  //   playerFrames.slice(2, 4)
+  // );
+  // animationTurboRight = loadSpriteSheet(
+  //   "/assets/spritesheets/ship.png",
+  //   playerFrames.slice(8, 10)
+  // );
+
+  spriteBig = loadSpriteSheet("/assets/spritesheets/enemy-big.png", 32, 32, 2);
+  animationBig = loadAnimation(spriteBig);
+  spriteMed = loadSpriteSheet(
+    "/assets/spritesheets/enemy-medium.png",
+    32,
+    16,
+    2
+  );
+  animationMed = loadAnimation(spriteMed);
+  spriteSmall = loadSpriteSheet(
+    "/assets/spritesheets/enemy-small.png",
+    16,
+    16,
+    2
+  );
+  animationSmall = loadAnimation(spriteSmall);
+  explosionSprite = loadSpriteSheet(
+    "/assets/spritesheets/explosion.png",
+    16,
+    16,
+    5
+  );
+  shipsArr = [animationSmall, animationMed, animationBig];
+  explosionAnimation = loadAnimation(explosionSprite);
+}
