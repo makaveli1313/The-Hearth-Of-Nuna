@@ -11,8 +11,8 @@ let animationBig,
   explosionSprite,
   explosionAnimation,
   spriteRocket;
-  const HEIGHT = 600;
-  const WIDTH = 800;
+const HEIGHT = 600;
+const WIDTH = 800;
 let shipsArr;
 
 let playerFrames = [
@@ -31,12 +31,19 @@ let playerFrames = [
   { name: "propulsion_right02", frame: { x: 64, y: 24, width: 16, height: 24 } }
 ];
 
+let powerFrames = [
+  { name: "health", frame: { x: 0, y: 0, width: 16, height: 16 } },
+  { name: "health_01", frame: { x: 16, y: 0, width: 16, height: 16 } },
+  { name: "rocket", frame: { x: 0, y: 16, width: 16, height: 16 } },
+  { name: "rocket_01", frame: { x: 16, y: 16, width: 16, height: 16 } }
+];
+
 let rocketFrames = [
   { name: "pulse", frame: { x: 0, y: 0, width: 16, height: 16 } },
   { name: "pulse_01", frame: { x: 16, y: 0, width: 16, height: 16 } },
-  { name: "rocket", frame: { x: 0, y:16, width: 16, height: 16 } },
+  { name: "rocket", frame: { x: 0, y: 16, width: 16, height: 16 } },
   { name: "rocket_01", frame: { x: 16, y: 16, width: 16, height: 16 } }
-]
+];
 
 function preload() {
   animationIdle = loadSpriteSheet(
@@ -76,15 +83,38 @@ function preload() {
     2
   );
   animationSmall = loadAnimation(spriteSmall);
+
+  shipsArr = [animationSmall, animationMed, animationBig];
+
   explosionSprite = loadSpriteSheet(
     "/assets/spritesheets/explosion.png",
     16,
     16,
     5
   );
-  shipsArr = [animationSmall, animationMed, animationBig];
   explosionAnimation = loadAnimation(explosionSprite);
-  spritePulse = loadSpriteSheet("/assets/spritesheets/laser-bolts.png",rocketFrames.slice(0,2));
+
+  spritePulse = loadSpriteSheet(
+    "/assets/spritesheets/laser-bolts.png",
+    rocketFrames.slice(0, 2)
+  );
   animationPulse = loadAnimation(spritePulse);
-  
+
+  spriteRocket = loadSpriteSheet(
+    "/assets/spritesheets/laser-bolts.png",
+    rocketFrames.slice(2, 5)
+  );
+  animationRocket = loadAnimation(spriteRocket);
+
+  spriteInvisibility = loadSpriteSheet(
+    "/assets/spritesheets/power-up.png",
+    powerFrames.slice(0, 2)
+  );
+  animationInvisibility = loadAnimation(spriteInvisibility);
+
+  spritePower = loadSpriteSheet(
+    "/assets/spritesheets/power-up.png",
+    powerFrames.slice(2, 5)
+  );
+  animationPower = loadAnimation(spritePower);
 }

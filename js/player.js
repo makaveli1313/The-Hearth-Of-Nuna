@@ -14,9 +14,11 @@ class Player {
     // this.sprite.addAnimation("shiftRight", animationTurboRight);
     this.sprite.scale = 3;
     this.fired = false;
+   
   }
   draw() {
     this.sprite.changeAnimation("idle");
+    
     this.keyIsDown();
   }
   keyIsDown() {
@@ -41,19 +43,8 @@ class Player {
     } else {
       this.velocity = 2;
     }
-    // explosion(){
-
-    // }
+ 
   }};
-  // keyPressed() {
-  //   if (keyCode === 32) {
-  //     if (!this.fired) {
-  //       game.rockets.push(
-  //         new Rocket(this.sprite.position.x, this.sprite.position.y)
-  //       );
-  //       this.fired = true;
-  //       setTimeout(() => {
-  //         this.fired = false;
-  //       }, 500);
+
       
 
