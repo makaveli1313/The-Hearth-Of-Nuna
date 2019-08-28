@@ -2,7 +2,7 @@ class Game {
   constructor() {
     this.background = new Background();
     this.player = new Player();
-    this.rockets = [];
+    this.explosion = [];
     this.fired = false;
   }
 
@@ -14,7 +14,15 @@ class Game {
   }
 
   draw() {
-    // this.enemiesIn.colide(this.rocketsIn);
+    this.rocketsIn.collide(this.enemiesIn, (a, b) => {
+      a.remove();
+      b.remove();
+      let explode = new Explosion(
+        b.position.x,
+        b.position.y
+      )
+      explode.setup();
+    });
     if (frameCount % 240 == 0) {
       this.createEnemy();
     }

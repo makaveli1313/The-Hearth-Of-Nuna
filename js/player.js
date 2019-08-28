@@ -8,6 +8,8 @@ class Player {
     this.sprite.addAnimation("idle", animationIdle);
     this.sprite.addAnimation("left", animationLeft);
     this.sprite.addAnimation("right", animationRight);
+    // this.explosion = createSprite(x,y);
+    // this.explosion.addAnimation("explode" )
     // this.sprite.addAnimation("shiftLeft", animationTurboLeft);
     // this.sprite.addAnimation("shiftRight", animationTurboRight);
     this.sprite.scale = 3;
@@ -39,6 +41,9 @@ class Player {
     } else {
       this.velocity = 2;
     }
+    // explosion(){
+
+    // }
   }};
   // keyPressed() {
   //   if (keyCode === 32) {
