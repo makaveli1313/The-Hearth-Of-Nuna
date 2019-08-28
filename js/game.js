@@ -17,10 +17,7 @@ class Game {
     this.rocketsIn.collide(this.enemiesIn, (a, b) => {
       a.remove();
       b.remove();
-      let explode = new Explosion(
-        b.position.x,
-        b.position.y
-      )
+      let explode = new Explosion(b.position.x, b.position.y);
       explode.setup();
     });
     if (frameCount % 240 == 0) {
@@ -29,8 +26,14 @@ class Game {
     this.background.draw();
     this.player.draw();
     this.enemiesIn.forEach(enemy => (enemy.position.y += Math.random()));
-
+    this.enemiesIn.forEach(enemy => {
+      if (enemy.position.y > HEIGHT) enemy.remove();
+    });
+    this.rocketsIn.forEach(pulse => {
+      if (pulse.position.y < 0) pulse.remove();
+    });
     this.rocketsIn.forEach(pulse => (pulse.position.y -= 3));
+    
   }
   keyPressed() {
     if (keyCode === 32) {

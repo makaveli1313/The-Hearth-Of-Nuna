@@ -1,7 +1,7 @@
 const game = new Game();
 
 function setup() {
-  let canvas = createCanvas(800, 600);
+  let canvas = createCanvas(WIDTH, HEIGHT);
 
   game.setup();
 }

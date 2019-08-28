@@ -11,7 +11,8 @@ let animationBig,
   explosionSprite,
   explosionAnimation,
   spriteRocket;
-
+  const HEIGHT = 600;
+  const WIDTH = 800;
 let shipsArr;
 
 let playerFrames = [
@@ -85,5 +86,5 @@ function preload() {
   explosionAnimation = loadAnimation(explosionSprite);
   spritePulse = loadSpriteSheet("/assets/spritesheets/laser-bolts.png",rocketFrames.slice(0,2));
   animationPulse = loadAnimation(spritePulse);
-
+  
 }
