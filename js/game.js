@@ -4,6 +4,7 @@ class Game {
     this.player = new Player();
     this.explosion = [];
     this.fired = false;
+    this.points = 0;
   }
 
   setup() {
@@ -15,10 +16,17 @@ class Game {
 
   draw() {
     this.rocketsIn.collide(this.enemiesIn, (a, b) => {
-      a.remove();
-      b.remove();
-      let explode = new Explosion(b.position.x, b.position.y);
-      explode.setup();
+      if (b.health > 0) {
+        b.health -= 1;
+        a.remove();
+        let explode = new Explosion(b.position.x, b.position.y,2);
+        explode.setup();
+      } else if (b.health === 0) {
+        a.remove();
+        b.remove();
+        let explode = new Explosion(b.position.x, b.position.y,3);
+        explode.setup();
+      }
     });
     if (frameCount % 240 == 0) {
       this.createEnemy();
@@ -27,13 +35,15 @@ class Game {
     this.player.draw();
     this.enemiesIn.forEach(enemy => (enemy.position.y += Math.random()));
     this.enemiesIn.forEach(enemy => {
-      if (enemy.position.y > HEIGHT) enemy.remove();
+      if (enemy.position.y > HEIGHT) {
+        enemy.remove();
+        this.points -= 200;
+      }
     });
     this.rocketsIn.forEach(pulse => {
       if (pulse.position.y < 0) pulse.remove();
     });
     this.rocketsIn.forEach(pulse => (pulse.position.y -= 3));
-    
   }
   keyPressed() {
     if (keyCode === 32) {
@@ -59,8 +69,16 @@ class Game {
     let x = random(32, width - 32);
     let y = -50;
     let newEnemy = createSprite(x, y);
+    let ship = shipsArr[randomIndex];
+    if (ship === animationSmall) {
+      newEnemy.health = 0;
+    } else if (ship === animationMed) {
+      newEnemy.health = 1;
+    } else if (ship === animationBig) {
+      newEnemy.health = 2;
+    }
     newEnemy.scale = 3;
-    newEnemy.addAnimation("props", shipsArr[randomIndex]);
+    newEnemy.addAnimation("props", ship);
     this.enemiesIn.add(newEnemy);
   }
 }
