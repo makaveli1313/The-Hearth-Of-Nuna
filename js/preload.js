@@ -107,7 +107,7 @@ function preload() {
     "assets/spritesheets/laser-bolts.png",
     rocketFrames.slice(2, 5)
   );
-  spriteRocketInverted = loadSpriteSheet("/assets/spritesheets/laser-bolts-inverted.png",rocketFrames.slice(0, 2))
+  spriteRocketInverted = loadSpriteSheet("assets/spritesheets/laser-bolts-inverted.png",rocketFrames.slice(0, 2))
   animationRocket = loadAnimation(spriteRocket);
   animationRocketInverted = loadAnimation(spriteRocketInverted);
 
