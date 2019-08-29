@@ -22,9 +22,12 @@ class Game {
     this.scoresIn = new Group();
     this.background.setup();
     this.player.setup();
+      themeMusic.setVolume(0.1);
+      themeMusic.play();
   }
 
   draw() {
+
     if(this.points > 1000){
       this.level = 2;
     }
@@ -38,7 +41,7 @@ class Game {
         explode.setup();
         this.points += 10;
       } else if (b.health === 0) {
-        explosionSound.setVolume(0.7);
+        explosionSound.setVolume(1);
         explosionSound.play();
         a.remove();
         b.remove();
@@ -50,7 +53,7 @@ class Game {
       }
     });
     this.rocketsIn.collide(this.enemiesIn, (a, b) => {
-      explosionSound.setVolume(0.7);
+      explosionSound.setVolume(1);
         explosionSound.play();
         let explode = new Explosion(b.position.x, b.position.y, 6);
       explode.setup();
@@ -61,12 +64,12 @@ class Game {
       
     });
     if(this.gameOverSound){
-      if(frameCount % 180 === 0){
-        gameOverSound.setVolume(1);
+      if(frameCount % 120 === 0){
+        gameOverSound.setVolume(0.2);
           gameOverSound.play();
         setTimeout(() => {
           this.gameOverSound = false;
-        }, 2000);
+        }, 1200);
         
       }
     }
@@ -108,12 +111,16 @@ class Game {
 
     this.powersIn.collide(this.player.sprite, (a, b) => {
       a.remove();
+      powerUpSound.setVolume(0.5);
+      powerUpSound.play();
       this.power = true;
       setTimeout(() => {
         this.power = false;
       }, 10000 / this.level);
     });
     this.invisibilityIn.collide(this.player.sprite, (a, b) => {
+      powerUpSound.setVolume(0.5);
+      powerUpSound.play();
       a.remove();
       this.invisible = true;
       setTimeout(() => {
@@ -190,7 +197,7 @@ class Game {
           this.fired = false;
         }, 500);
       } else if (!this.fired && this.power) {
-        rocketSound.setVolume(0.4);
+        rocketSound.setVolume(0.2);
         rocketSound.play();
         this.createRocket();
         this.fired = true;
