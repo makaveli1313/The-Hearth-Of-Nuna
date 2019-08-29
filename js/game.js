@@ -2,12 +2,13 @@ class Game {
   constructor() {
     this.background = new Background();
     this.player = new Player();
-    this.explosion = [];
+    this.boss = new Boss();
+    this.bossDead = false;
     this.fired = false;
     this.power = false;
     this.invisible = false;
     this.points = 0;
-    this.level = 1;
+    this.level = 3;
     this.gameOver = false;
     this.gameOverSound = false;
   }
@@ -22,15 +23,88 @@ class Game {
     this.scoresIn = new Group();
     this.background.setup();
     this.player.setup();
-      themeMusic.setVolume(0.1);
-      themeMusic.play();
+    themeMusic.setVolume(0.1);
+    // themeMusic.play();
+    this.boss.setup();
   }
 
   draw() {
-
-    if(this.points > 1000){
-      this.level = 2;
+    // if(this.points > 1000){
+    //   this.level = 2;                   level need to setup
+    if (!this.invisible && !this.gameOver) {
+      // }
+      this.boss.bulletsInBoss.collide(this.player.sprite, (a, b) => {
+        a.remove();
+        b.remove();
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        this.gameOver = true;
+        this.gameOverSound = true;
+        let explode = new Explosion(b.position.x, b.position.y, 5);
+        explode.setup();
+      });
     }
+    if (!this.invisible && !this.gameOver) {
+      // }
+      this.boss.bulletsInBoss2.collide(this.player.sprite, (a, b) => {
+        a.remove();
+        b.remove();
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        this.gameOver = true;
+        this.gameOverSound = true;
+        let explode = new Explosion(b.position.x, b.position.y, 5);
+        explode.setup();
+      });
+    }
+    if (!this.invisible && !this.gameOver) {
+      
+      this.boss.bulletsInBoss3.collide(this.player.sprite, (a, b) => {
+        a.remove();
+        b.remove();
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        this.gameOver = true;
+        this.gameOverSound = true;
+        let explode = new Explosion(b.position.x, b.position.y, 5);
+        explode.setup();
+      });
+    }
+    if (!this.invisible && !this.gameOver) {
+      // }
+      this.boss.bulletsInBoss4.collide(this.player.sprite, (a, b) => {
+        a.remove();
+        b.remove();
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        this.gameOver = true;
+        this.gameOverSound = true;
+        let explode = new Explosion(b.position.x, b.position.y, 5);
+        explode.setup();
+      });
+    }
+    if (!this.invisible && !this.gameOver) {
+    this.boss.rocketsInBoss.collide(this.player.sprite, (a, b) => {
+      a.remove();
+      b.remove();
+      explosionSound.setVolume(1);
+        explosionSound.play();
+        this.gameOver = true;
+        this.gameOverSound = true;
+        let explode = new Explosion(b.position.x, b.position.y, 5);
+        explode.setup();
+    })};
+    if (!this.invisible && !this.gameOver) {
+      this.boss.sprite.collide(this.player.sprite, (a, b) => {
+        this.gameOver = true;
+        this.gameOverSound = true;
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        b.remove();
+        let explodePlayer = new Explosion(b.position.x, b.position.y, 5);
+        explodePlayer.setup();
+      })};
+
     this.bulletsIn.collide(this.enemiesIn, (a, b) => {
       if (b.health > 0) {
         b.health -= 1;
@@ -48,32 +122,74 @@ class Game {
         this.createScore(b);
         this.points += 100;
         let explode = new Explosion(b.position.x, b.position.y, 3);
-        
         explode.setup();
       }
     });
+    this.bulletsIn.collide(this.boss.sprite, (a, b) => {
+      a.remove();
+      if (this.boss.health > 0) {
+        this.boss.health -= 1;
+        
+        let explode = new Explosion(b.position.x, b.position.y, 3);
+        hitSound.setVolume(0.3);
+        hitSound.play();
+        explode.setup();
+        this.points += 50;
+      } else if (this.boss.health === 0) {
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        a.remove();
+        b.remove();
+        this.bossDead = true;
+        // this.createScore(b);
+        this.points += 1000;
+        let explode = new Explosion(b.position.x, b.position.y, 10);
+        explode.setup();
+      }
+    });
+    this.rocketsIn.collide(this.boss.sprite, (a, b) => {
+      a.remove();
+      if (this.boss.health > 0) {
+        this.boss.health -= 3;
+        let explode = new Explosion(b.position.x, b.position.y, 3);
+        hitSound.setVolume(0.3);
+        hitSound.play();
+        explode.setup();
+        this.points += 100;
+      } else if (this.boss.health === 0) {
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        a.remove();
+        b.remove();
+        this.bossDead = true;
+        // this.createScore(b);
+        this.points += 1000;
+        let explode = new Explosion(b.position.x, b.position.y, 10);
+        explode.setup();
+      }
+    });
+   
+
     this.rocketsIn.collide(this.enemiesIn, (a, b) => {
       explosionSound.setVolume(1);
-        explosionSound.play();
-        let explode = new Explosion(b.position.x, b.position.y, 6);
+      explosionSound.play();
+      let explode = new Explosion(b.position.x, b.position.y, 6);
       explode.setup();
       a.remove();
       b.remove();
       this.createScore(b);
       this.points += 100;
-      
     });
-    if(this.gameOverSound){
-      if(frameCount % 120 === 0){
+    if (this.gameOverSound) {
+      if (frameCount % 120 === 0) {
         gameOverSound.setVolume(0.2);
-          gameOverSound.play();
+        gameOverSound.play();
         setTimeout(() => {
           this.gameOverSound = false;
         }, 1200);
-        
       }
     }
-    if (!this.invisible) {
+    if (!this.invisible && !this.gameOver) {
       this.bulletsEnIn.collide(this.player.sprite, (a, b) => {
         a.remove();
         b.remove();
@@ -86,7 +202,7 @@ class Game {
         explode.setup();
       });
     }
-    if (!this.invisible) {
+    if (!this.invisible && !this.gameOver) {
       this.enemiesIn.collide(this.player.sprite, (a, b) => {
         this.gameOver = true;
         this.gameOverSound = true;
@@ -134,20 +250,27 @@ class Game {
     if (this.invisibilityIn < 1) {
       this.createInvisibility();
     }
-    if (this.enemiesIn.length < 2) {
-      this.createEnemy();
+    if (this.level === 3) {
+      this.boss.draw();
     }
-    if (frameCount % (Math.floor(Math.random() * 10) * 180 / (this.level/2)) == 0) {
+
+    if (
+      this.level < 3 &&
+      frameCount %
+        ((Math.floor(Math.random() * 10) * 180) / (this.level / 2)) ==
+        0
+    ) {
       this.createEnemy();
     }
     this.background.draw();
     this.player.draw();
-    this.enemiesIn.forEach(enemy => (enemy.position.y += this.level /2)); //speed that they come from above yet to be polished
+    this.enemiesIn.forEach(enemy => (enemy.position.y += this.level / 2)); //speed that they come from above yet to be polished
     this.powersIn.forEach(power => (power.position.y += Math.random()));
     this.invisibilityIn.forEach(inv => (inv.position.y += Math.random()));
     this.enemiesIn.forEach(enemy => {
       if (
-        frameCount % (Math.floor(Math.random() * 10) * 60 / (this.level/2)) ==
+        frameCount %
+          ((Math.floor(Math.random() * 10) * 60) / (this.level / 2)) ==
         0
       ) {
         this.createBulletEn(enemy);
@@ -182,7 +305,7 @@ class Game {
     });
     this.bulletsIn.forEach(pulse => (pulse.position.y -= 3));
     this.rocketsIn.forEach(rocket => (rocket.position.y -= 3));
-    this.bulletsEnIn.forEach(pulse => (pulse.position.y += 1 + (this.level/2)));
+    this.bulletsEnIn.forEach(pulse => (pulse.position.y += 1 + this.level / 2));
   }
 
   keyPressed() {
@@ -245,8 +368,6 @@ class Game {
       newEnemy.health = -1 + this.level;
     } else if (ship === animationMed) {
       newEnemy.health = 0 + this.level;
-    } else if (ship === animationBig) {
-      newEnemy.health = 1 + this.level;
     }
     newEnemy.scale = 3;
     newEnemy.addAnimation("props", ship);
@@ -272,20 +393,17 @@ class Game {
   createScore(player) {
     let x = player.position.x;
     let y = player.position.y;
-    let score1 = createSprite(x,y);
+    let score1 = createSprite(x, y);
     let score0 = createSprite(x + 20, y);
     let score00 = createSprite(x + 40, y);
     score0.addAnimation("score0", number0);
     score00.addAnimation("score00", number0);
-    score1.addAnimation("score1",number1);
+    score1.addAnimation("score1", number1);
     score0.scale = 3;
     score00.scale = 3;
     score1.scale = 3;
     this.scoresIn.add(score0);
     this.scoresIn.add(score00);
     this.scoresIn.add(score1);
-    // setTimeout(() => {
-    //   this.player.sprite.visible = true;
-    // }, 250);
   }
 }

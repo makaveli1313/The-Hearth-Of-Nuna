@@ -17,8 +17,5 @@ class Background {
     }
     image(this.bgDesert, 0, this.yDesert, width, height);
     image(this.bgCloud, 0, this.yCloud, width, 206);
-
-    // image(img, x, y, w, h)
-    // image(this.bgDesert,0,this.yDesert + height,width)
   }
 }

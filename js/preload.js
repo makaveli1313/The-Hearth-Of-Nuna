@@ -1,5 +1,5 @@
-let animationBig,
-  spriteBig,
+let animationBoss,
+  spriteBoss,
   animationMed,
   spriteMed,
   animationSmall,
@@ -68,9 +68,10 @@ function preload() {
     "/assets/spritesheets/ship.png",
     playerFrames.slice(6, 8)
   );
+ 
 
-  spriteBig = loadSpriteSheet("/assets/spritesheets/enemy-big.png", 32, 32, 2);
-  animationBig = loadAnimation(spriteBig);
+  spriteBoss = loadSpriteSheet("/assets/spritesheets/enemy-big.png", 32, 32, 2);
+  animationBoss = loadAnimation(spriteBoss);
   spriteMed = loadSpriteSheet(
     "/assets/spritesheets/enemy-medium.png",
     32,
@@ -86,7 +87,7 @@ function preload() {
   );
   animationSmall = loadAnimation(spriteSmall);
 
-  shipsArr = [animationSmall, animationMed, animationBig];
+  shipsArr = [animationSmall, animationMed];
 
   explosionSprite = loadSpriteSheet(
     "/assets/spritesheets/explosion.png",
@@ -106,7 +107,9 @@ function preload() {
     "/assets/spritesheets/laser-bolts.png",
     rocketFrames.slice(2, 5)
   );
+  spriteRocketInverted = loadSpriteSheet("/assets/spritesheets/laser-bolts-inverted.png",rocketFrames.slice(0, 2))
   animationRocket = loadAnimation(spriteRocket);
+  animationRocketInverted = loadAnimation(spriteRocketInverted);
 
   spriteInvisibility = loadSpriteSheet(
     "/assets/spritesheets/power-up.png",
@@ -120,13 +123,13 @@ function preload() {
   );
   animationPower = loadAnimation(spritePower);
 
-  number0 = loadAnimation("/assets/Numbers 1-9 (7x10px)/Number0 7x10.png");
-  number1 = loadAnimation("/assets/Numbers 1-9 (7x10px)/Number1 7x10.png");
+  number0 = loadAnimation('/assets/Numbers 1-9 (7x10px)/Number0 7x10.png');
+  number1 = loadAnimation('/assets/Numbers 1-9 (7x10px)/Number1 7x10.png');
   hitSound = loadSound("/assets/Sounds/sfx_wpn_cannon2.wav");
   explosionSound = loadSound("/assets/Sounds/sfx_exp_odd7.wav");
   pulseSound = loadSound("/assets/Sounds/sfx_wpn_laser8.wav");
   rocketSound = loadSound("/assets/Sounds/sfx_wpn_missilelaunch.wav");
-  powerUpSound = loadSound("/assets/Sounds/sfx_sounds_powerup4.wav");
+  powerUpSound = loadSound("/assets/Sounds/sfx_sounds_powerup4.wav")
   gameOverSound = loadSound("/assets/Sounds/Retro-game-over-sound-effect.mp3");
   themeMusic = loadSound("/assets/Music/Intergalactic Odyssey.ogg");
 }
