@@ -7,8 +7,9 @@ class Game {
     this.power = false;
     this.invisible = false;
     this.points = 0;
-    this.level = 1; 
+    this.level = 1;
     this.gameOver = false;
+    this.gameOverSound = false;
   }
 
   setup() {
@@ -18,47 +19,79 @@ class Game {
     this.bulletsEnIn = new Group();
     this.powersIn = new Group();
     this.invisibilityIn = new Group();
+    this.scoresIn = new Group();
     this.background.setup();
     this.player.setup();
   }
 
   draw() {
+    if(this.points > 1000){
+      this.level = 2;
+    }
     this.bulletsIn.collide(this.enemiesIn, (a, b) => {
       if (b.health > 0) {
         b.health -= 1;
         a.remove();
         let explode = new Explosion(b.position.x, b.position.y, 2);
+        hitSound.setVolume(0.1);
+        hitSound.play();
         explode.setup();
+        this.points += 10;
       } else if (b.health === 0) {
+        explosionSound.setVolume(0.7);
+        explosionSound.play();
         a.remove();
         b.remove();
+        this.createScore(b);
         this.points += 100;
         let explode = new Explosion(b.position.x, b.position.y, 3);
+        
         explode.setup();
       }
     });
     this.rocketsIn.collide(this.enemiesIn, (a, b) => {
+      explosionSound.setVolume(0.7);
+        explosionSound.play();
+        let explode = new Explosion(b.position.x, b.position.y, 6);
+      explode.setup();
       a.remove();
       b.remove();
-      let explode = new Explosion(b.position.x, b.position.y, 6);
-      explode.setup();
+      this.createScore(b);
+      this.points += 100;
+      
     });
-
+    if(this.gameOverSound){
+      if(frameCount % 180 === 0){
+        gameOverSound.setVolume(1);
+          gameOverSound.play();
+        setTimeout(() => {
+          this.gameOverSound = false;
+        }, 2000);
+        
+      }
+    }
     if (!this.invisible) {
       this.bulletsEnIn.collide(this.player.sprite, (a, b) => {
         a.remove();
         b.remove();
+        explosionSound.setVolume(1);
+        explosionSound.play();
+        this.gameOver = true;
+        this.gameOverSound = true;
 
-        let explode = new Explosion(b.position.x, b.position.y, 3);
+        let explode = new Explosion(b.position.x, b.position.y, 5);
         explode.setup();
       });
     }
     if (!this.invisible) {
       this.enemiesIn.collide(this.player.sprite, (a, b) => {
         this.gameOver = true;
+        this.gameOverSound = true;
+        explosionSound.setVolume(1);
+        explosionSound.play();
         a.remove();
         b.remove();
-        let explodePlayer = new Explosion(b.position.x, b.position.y, 3);
+        let explodePlayer = new Explosion(b.position.x, b.position.y, 5);
         explodePlayer.setup();
         let explodeEnemie = new Explosion(a.position.x, a.position.y, 3);
         explodeEnemie.setup();
@@ -97,19 +130,17 @@ class Game {
     if (this.enemiesIn.length < 2) {
       this.createEnemy();
     }
-    if (frameCount % (Math.floor(Math.random() * 10) * 180 * this.level) == 0) {
+    if (frameCount % (Math.floor(Math.random() * 10) * 180 / (this.level/2)) == 0) {
       this.createEnemy();
     }
-
     this.background.draw();
     this.player.draw();
-    this.enemiesIn.forEach(enemy => (enemy.position.y += Math.random())); //speed that they come from above yet to be polished
+    this.enemiesIn.forEach(enemy => (enemy.position.y += this.level /2)); //speed that they come from above yet to be polished
     this.powersIn.forEach(power => (power.position.y += Math.random()));
     this.invisibilityIn.forEach(inv => (inv.position.y += Math.random()));
-
     this.enemiesIn.forEach(enemy => {
       if (
-        frameCount % (Math.floor(Math.random() * 10) * 60 * this.level) ==
+        frameCount % (Math.floor(Math.random() * 10) * 60 / (this.level/2)) ==
         0
       ) {
         this.createBulletEn(enemy);
@@ -137,21 +168,30 @@ class Game {
     this.rocketsIn.forEach(rocket => {
       if (rocket.position.y > HEIGHT) rocket.remove();
     });
+    this.scoresIn.forEach(score => {
+      setTimeout(() => {
+        score.remove();
+      }, 2000);
+    });
     this.bulletsIn.forEach(pulse => (pulse.position.y -= 3));
     this.rocketsIn.forEach(rocket => (rocket.position.y -= 3));
-    this.bulletsEnIn.forEach(pulse => (pulse.position.y += 2));
+    this.bulletsEnIn.forEach(pulse => (pulse.position.y += 1 + (this.level/2)));
   }
 
   keyPressed() {
-    if (keyCode === 32) {
+    if (keyCode === 32 && !this.gameOver) {
       // When the player dies want to stop shooting;
       if (!this.fired && !this.power) {
+        pulseSound.setVolume(0.4);
+        pulseSound.play();
         this.createBullet();
         this.fired = true;
         setTimeout(() => {
           this.fired = false;
         }, 500);
       } else if (!this.fired && this.power) {
+        rocketSound.setVolume(0.4);
+        rocketSound.play();
         this.createRocket();
         this.fired = true;
         setTimeout(() => {
@@ -160,6 +200,7 @@ class Game {
       }
     }
   }
+
   createBullet() {
     let x = this.player.sprite.position.x;
     let y = this.player.sprite.position.y;
@@ -168,6 +209,7 @@ class Game {
     this.bulletsIn.add(newPulse);
     newPulse.scale = 3;
   }
+
   createRocket() {
     let x = this.player.sprite.position.x;
     let y = this.player.sprite.position.y;
@@ -176,6 +218,7 @@ class Game {
     this.rocketsIn.add(newRocket);
     newRocket.scale = 3;
   }
+
   createBulletEn(enemy) {
     let x = enemy.position.x;
     let y = enemy.position.y;
@@ -192,9 +235,9 @@ class Game {
     let newEnemy = createSprite(x, y);
     let ship = shipsArr[randomIndex];
     if (ship === animationSmall) {
-      newEnemy.health = 0;
+      newEnemy.health = -1 + this.level;
     } else if (ship === animationMed) {
-      newEnemy.health = 1;
+      newEnemy.health = 0 + this.level;
     } else if (ship === animationBig) {
       newEnemy.health = 1 + this.level;
     }
@@ -218,5 +261,24 @@ class Game {
     newInv.scale = 3;
     newInv.addAnimation("power", animationInvisibility);
     this.invisibilityIn.add(newInv);
+  }
+  createScore(player) {
+    let x = player.position.x;
+    let y = player.position.y;
+    let score1 = createSprite(x,y);
+    let score0 = createSprite(x + 20, y);
+    let score00 = createSprite(x + 40, y);
+    score0.addAnimation("score0", number0);
+    score00.addAnimation("score00", number0);
+    score1.addAnimation("score1",number1);
+    score0.scale = 3;
+    score00.scale = 3;
+    score1.scale = 3;
+    this.scoresIn.add(score0);
+    this.scoresIn.add(score00);
+    this.scoresIn.add(score1);
+    // setTimeout(() => {
+    //   this.player.sprite.visible = true;
+    // }, 250);
   }
 }

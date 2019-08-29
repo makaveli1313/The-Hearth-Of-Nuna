@@ -10,7 +10,15 @@ let animationBig,
   animationPulse,
   explosionSprite,
   explosionAnimation,
-  spriteRocket;
+  spriteRocket,
+  number0,
+  number1,
+  explosionSound,
+  hitSound,
+  pulseSound,
+  rocketSound,
+  gameOverSound;
+
 const HEIGHT = 600;
 const WIDTH = 800;
 let shipsArr;
@@ -117,4 +125,13 @@ function preload() {
     powerFrames.slice(2, 5)
   );
   animationPower = loadAnimation(spritePower);
+
+  number0 = loadAnimation('/assets/Numbers 1-9 (7x10px)/Number0 7x10.png');
+  number1 = loadAnimation('/assets/Numbers 1-9 (7x10px)/Number1 7x10.png');
+  
+  hitSound = loadSound("/assets/Sounds/sfx_wpn_cannon2.wav");
+  explosionSound = loadSound("/assets/Sounds/sfx_exp_odd7.wav");
+  pulseSound = loadSound("/assets/Sounds/sfx_wpn_laser8.wav");
+  rocketSound = loadSound("/assets/Sounds/sfx_wpn_missilelaunch.wav");
+  gameOverSound = loadSound("/assets/Sounds/Retro-game-over-sound-effect.mp3")
 }

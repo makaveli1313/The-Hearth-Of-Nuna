@@ -1,5 +1,6 @@
 class Player {
   constructor() {}
+
   setup() {
     this.x = 100;
     this.y = 100;
@@ -8,19 +9,14 @@ class Player {
     this.sprite.addAnimation("idle", animationIdle);
     this.sprite.addAnimation("left", animationLeft);
     this.sprite.addAnimation("right", animationRight);
-    // this.explosion = createSprite(x,y);
-    // this.explosion.addAnimation("explode" )
-    // this.sprite.addAnimation("shiftLeft", animationTurboLeft);
-    // this.sprite.addAnimation("shiftRight", animationTurboRight);
     this.sprite.scale = 3;
-    this.fired = false;
-   
-  }
+  };
+
   draw() {
     this.sprite.changeAnimation("idle");
-    
     this.keyIsDown();
-  }
+  };
+  
   keyIsDown() {
     if (keyIsDown(37)) {
       this.sprite.changeAnimation("left");
@@ -43,8 +39,5 @@ class Player {
     } else {
       this.velocity = 2;
     }
- 
-  }};
-
-      
-
+  }
+}
