@@ -2,9 +2,9 @@ class Player {
   constructor() {}
 
   setup() {
-    this.x = 100;
-    this.y = 100;
-    this.velocity = 2;
+    this.x = WIDTH /2;
+    this.y = HEIGHT - 50;
+    this.velocity = 4;
     this.sprite = createSprite(this.x, this.y);
     this.sprite.addAnimation("idle", animationIdle);
     this.sprite.addAnimation("left", animationLeft);
@@ -16,7 +16,7 @@ class Player {
     this.sprite.changeAnimation("idle");
     this.keyIsDown();
   };
-  
+
   keyIsDown() {
     if (keyIsDown(37)) {
       this.sprite.changeAnimation("left");
@@ -34,10 +34,10 @@ class Player {
     if (keyIsDown(38)) {
       if (this.sprite.position.y > 2) this.sprite.position.y -= this.velocity;
     }
-    if (keyIsDown(16)) {
-      this.velocity = 4;
-    } else {
-      this.velocity = 2;
-    }
+    // if (keyIsDown(16)) {
+    //   this.velocity = 4;
+    // } else {
+    //   this.velocity = 2;
+    // }
   }
 }

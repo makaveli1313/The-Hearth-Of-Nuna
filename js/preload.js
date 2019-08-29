@@ -57,30 +57,30 @@ let rocketFrames = [
 
 function preload() {
   animationIdle = loadSpriteSheet(
-    "/assets/spritesheets/ship.png",
+    "assets/spritesheets/ship.png",
     playerFrames.slice(4, 6)
   );
   animationLeft = loadSpriteSheet(
-    "/assets/spritesheets/ship.png",
+    "assets/spritesheets/ship.png",
     playerFrames.slice(0, 2)
   );
   animationRight = loadSpriteSheet(
-    "/assets/spritesheets/ship.png",
+    "assets/spritesheets/ship.png",
     playerFrames.slice(6, 8)
   );
  
 
-  spriteBoss = loadSpriteSheet("/assets/spritesheets/enemy-big.png", 32, 32, 2);
+  spriteBoss = loadSpriteSheet("assets/spritesheets/enemy-big.png", 32, 32, 2);
   animationBoss = loadAnimation(spriteBoss);
   spriteMed = loadSpriteSheet(
-    "/assets/spritesheets/enemy-medium.png",
+    "assets/spritesheets/enemy-medium.png",
     32,
     16,
     2
   );
   animationMed = loadAnimation(spriteMed);
   spriteSmall = loadSpriteSheet(
-    "/assets/spritesheets/enemy-small.png",
+    "assets/spritesheets/enemy-small.png",
     16,
     16,
     2
@@ -90,7 +90,7 @@ function preload() {
   shipsArr = [animationSmall, animationMed];
 
   explosionSprite = loadSpriteSheet(
-    "/assets/spritesheets/explosion.png",
+    "assets/spritesheets/explosion.png",
     16,
     16,
     5
@@ -98,13 +98,13 @@ function preload() {
   explosionAnimation = loadAnimation(explosionSprite);
 
   spritePulse = loadSpriteSheet(
-    "/assets/spritesheets/laser-bolts.png",
+    "assets/spritesheets/laser-bolts.png",
     rocketFrames.slice(0, 2)
   );
   animationPulse = loadAnimation(spritePulse);
 
   spriteRocket = loadSpriteSheet(
-    "/assets/spritesheets/laser-bolts.png",
+    "assets/spritesheets/laser-bolts.png",
     rocketFrames.slice(2, 5)
   );
   spriteRocketInverted = loadSpriteSheet("/assets/spritesheets/laser-bolts-inverted.png",rocketFrames.slice(0, 2))
@@ -112,25 +112,25 @@ function preload() {
   animationRocketInverted = loadAnimation(spriteRocketInverted);
 
   spriteInvisibility = loadSpriteSheet(
-    "/assets/spritesheets/power-up.png",
+    "assets/spritesheets/power-up.png",
     powerFrames.slice(0, 2)
   );
   animationInvisibility = loadAnimation(spriteInvisibility);
 
   spritePower = loadSpriteSheet(
-    "/assets/spritesheets/power-up.png",
+    "assets/spritesheets/power-up.png",
     powerFrames.slice(2, 5)
   );
   animationPower = loadAnimation(spritePower);
 
-  number0 = loadAnimation('/assets/Numbers 1-9 (7x10px)/Number0 7x10.png');
-  number1 = loadAnimation('/assets/Numbers 1-9 (7x10px)/Number1 7x10.png');
-  hitSound = loadSound("/assets/Sounds/sfx_wpn_cannon2.wav");
-  explosionSound = loadSound("/assets/Sounds/sfx_exp_odd7.wav");
-  pulseSound = loadSound("/assets/Sounds/sfx_wpn_laser8.wav");
-  rocketSound = loadSound("/assets/Sounds/sfx_wpn_missilelaunch.wav");
-  powerUpSound = loadSound("/assets/Sounds/sfx_sounds_powerup4.wav")
-  gameOverSound = loadSound("/assets/Sounds/Retro-game-over-sound-effect.mp3");
-  themeMusic = loadSound("/assets/Music/Intergalactic Odyssey.ogg");
-  bossMusic = loadSound("/assets/Music/boss-fight.mp3");
+  number0 = loadAnimation('assets/Numbers 1-9 (7x10px)/Number0 7x10.png');
+  number1 = loadAnimation('assets/Numbers 1-9 (7x10px)/Number1 7x10.png');
+  hitSound = loadSound("assets/Sounds/sfx_wpn_cannon2.wav");
+  explosionSound = loadSound("assets/Sounds/sfx_exp_odd7.wav");
+  pulseSound = loadSound("assets/Sounds/sfx_wpn_laser8.wav");
+  rocketSound = loadSound("assets/Sounds/sfx_wpn_missilelaunch.wav");
+  powerUpSound = loadSound("assets/Sounds/sfx_sounds_powerup4.wav")
+  gameOverSound = loadSound("assets/Sounds/Retro-game-over-sound-effect.mp3");
+  themeMusic = loadSound("assets/Music/Intergalactic Odyssey.ogg");
+  bossMusic = loadSound("assets/Music/boss-fight.mp3");
 }

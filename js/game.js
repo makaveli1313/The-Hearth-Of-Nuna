@@ -26,12 +26,6 @@ class Game {
     this.boss.setup();
     themeMusic.setVolume(0.1);
     themeMusic.play();
-    // while(this.level < 3){
-    //   themeMusic.play();
-    // }
-    // if(this.level === 3){
-    //   bossMusic.play()
-    // }
   }
 
   draw() {
@@ -53,7 +47,6 @@ class Game {
     }
 
     if (!this.invisible && !this.gameOver) {
-      // }
       this.boss.bulletsInBoss.collide(this.player.sprite, (a, b) => {
         a.remove();
         b.remove();
@@ -66,7 +59,6 @@ class Game {
       });
     }
     if (!this.invisible && !this.gameOver) {
-      // }
       this.boss.bulletsInBoss2.collide(this.player.sprite, (a, b) => {
         a.remove();
         b.remove();
