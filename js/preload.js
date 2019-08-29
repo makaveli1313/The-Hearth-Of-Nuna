@@ -132,4 +132,5 @@ function preload() {
   powerUpSound = loadSound("/assets/Sounds/sfx_sounds_powerup4.wav")
   gameOverSound = loadSound("/assets/Sounds/Retro-game-over-sound-effect.mp3");
   themeMusic = loadSound("/assets/Music/Intergalactic Odyssey.ogg");
+  bossMusic = loadSound("/assets/Music/boss-fight.mp3");
 }

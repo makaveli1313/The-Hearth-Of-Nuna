@@ -7,8 +7,8 @@ class Game {
     this.fired = false;
     this.power = false;
     this.invisible = false;
-    this.points = 0;
-    this.level = 3;
+    this.points = 2000;
+    this.level = 1;
     this.gameOver = false;
     this.gameOverSound = false;
   }
@@ -23,14 +23,35 @@ class Game {
     this.scoresIn = new Group();
     this.background.setup();
     this.player.setup();
-    themeMusic.setVolume(0.1);
-    // themeMusic.play();
     this.boss.setup();
+    themeMusic.setVolume(0.1);
+    themeMusic.play();
+    // while(this.level < 3){
+    //   themeMusic.play();
+    // }
+    // if(this.level === 3){
+    //   bossMusic.play()
+    // }
   }
 
   draw() {
-    // if(this.points > 1000){
-    //   this.level = 2;                   level need to setup
+    if (this.level == 3) {
+      if (!bossMusic.isPlaying()) {
+        themeMusic.pause();
+        bossMusic.play();
+      }
+    }
+
+    console.log(this.points);
+    console.log(this.level);
+    if (this.points > 3000) {
+      this.level = 3;
+    } else if (this.points > 2000 && this.points < 3000) {
+      this.level = 2;
+    } else if (this.points > 1000 && this.points < 2000) {
+      this.level = 1;
+    }
+
     if (!this.invisible && !this.gameOver) {
       // }
       this.boss.bulletsInBoss.collide(this.player.sprite, (a, b) => {
@@ -58,7 +79,6 @@ class Game {
       });
     }
     if (!this.invisible && !this.gameOver) {
-      
       this.boss.bulletsInBoss3.collide(this.player.sprite, (a, b) => {
         a.remove();
         b.remove();
@@ -84,16 +104,17 @@ class Game {
       });
     }
     if (!this.invisible && !this.gameOver) {
-    this.boss.rocketsInBoss.collide(this.player.sprite, (a, b) => {
-      a.remove();
-      b.remove();
-      explosionSound.setVolume(1);
+      this.boss.rocketsInBoss.collide(this.player.sprite, (a, b) => {
+        a.remove();
+        b.remove();
+        explosionSound.setVolume(1);
         explosionSound.play();
         this.gameOver = true;
         this.gameOverSound = true;
         let explode = new Explosion(b.position.x, b.position.y, 5);
         explode.setup();
-    })};
+      });
+    }
     if (!this.invisible && !this.gameOver) {
       this.boss.sprite.collide(this.player.sprite, (a, b) => {
         this.gameOver = true;
@@ -103,7 +124,8 @@ class Game {
         b.remove();
         let explodePlayer = new Explosion(b.position.x, b.position.y, 5);
         explodePlayer.setup();
-      })};
+      });
+    }
 
     this.bulletsIn.collide(this.enemiesIn, (a, b) => {
       if (b.health > 0) {
@@ -127,9 +149,9 @@ class Game {
     });
     this.bulletsIn.collide(this.boss.sprite, (a, b) => {
       a.remove();
-      if (this.boss.health > 0) {
+      if (this.boss.health > 0 && this.boss.sprite.position.y > 0) {
         this.boss.health -= 1;
-        
+
         let explode = new Explosion(b.position.x, b.position.y, 3);
         hitSound.setVolume(0.3);
         hitSound.play();
@@ -149,7 +171,7 @@ class Game {
     });
     this.rocketsIn.collide(this.boss.sprite, (a, b) => {
       a.remove();
-      if (this.boss.health > 0) {
+      if (this.boss.health > 0 && this.boss.sprite.position.y > 0) {
         this.boss.health -= 3;
         let explode = new Explosion(b.position.x, b.position.y, 3);
         hitSound.setVolume(0.3);
@@ -168,7 +190,6 @@ class Game {
         explode.setup();
       }
     });
-   
 
     this.rocketsIn.collide(this.enemiesIn, (a, b) => {
       explosionSound.setVolume(1);
@@ -253,12 +274,15 @@ class Game {
     if (this.level === 3) {
       this.boss.draw();
     }
+    // if (this.enemiesIn < 2) {
+    //   this.createEnemy();
+    // }
+    // if (
+    //   this.level < 3 &&
 
     if (
       this.level < 3 &&
-      frameCount %
-        ((Math.floor(Math.random() * 10) * 180) / (this.level / 2)) ==
-        0
+      frameCount % Math.floor(Math.random() * 10 * 180) === 0
     ) {
       this.createEnemy();
     }
