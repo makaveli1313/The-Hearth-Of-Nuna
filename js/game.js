@@ -13,8 +13,8 @@ class Game {
     this.gameOverSound = false;
     this.displayTextScreen = "GO!";
     this.level01 = "LEVEL 1";
-    this.level02 = "LEVEL UP";
-    this.levelBoss = "THE BOSS";
+    this.level02 = "LEVEL UP!";
+    this.levelBoss = "THE BOSS!";
     
     
   }
@@ -59,7 +59,7 @@ class Game {
       playing
       THE LEGENDS OF NUNA 
       And once again 
-      THANK YOU MIN!
+      THANK  YOU  MIN!
       NVT!!!`
       
   }
