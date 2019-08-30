@@ -53,9 +53,11 @@ class Game {
     }
     if(this.bossDead === true){
       fill(255);
+    
       this.displayTextScreen = 
-      `Thank you for 
-      playing! 
+      `  Thank you for 
+      playing
+      THE LEGENDS OF NUNA 
       And once again 
       THANK YOU MIN!
       NVT!!!`
@@ -268,10 +270,10 @@ class Game {
       powerUpSound.setVolume(0.5);
       powerUpSound.play();
       this.power = true;
+      this.points += 100;
+        this.createScore(b);
       setTimeout(() => {
         this.power = false;
-        this.points += 100;
-        this.createScore(b);
       }, 12000 / this.level);
     });
     this.invisibilityIn.collide(this.player.sprite, (a, b) => {
@@ -286,10 +288,10 @@ class Game {
       }, 12000 / this.level);
     });
 
-    if (frameCount % Math.floor(Math.random() * 10 * 360) === 0) {
+    if (frameCount % Math.floor(Math.random() * 10 * random(360,720)) === 0) {
       this.createPower();
     }
-    if (frameCount % Math.floor(Math.random() * 10 * 720) === 0) {
+    if (frameCount % Math.floor(Math.random() * 10 * random(360,720)) === 0) {
       this.createInvisibility();
     }
     if (this.level === 3) {

@@ -11,7 +11,7 @@ class Background {
     this.bgCloud = loadImage("assets/backgrounds/clouds-transparent.png");
   }
   draw() {
-    this.yCloud = this.yCloud + 1;
+    this.yCloud = this.yCloud  + 1;;
     if (this.yCloud >= height) {
       this.yCloud = -103;
     }
