@@ -3,14 +3,20 @@ class Game {
     this.background = new Background();
     this.player = new Player();
     this.boss = new Boss();
+    this.level = 1;
     this.bossDead = false;
     this.fired = false;
     this.power = false;
     this.invisible = false;
-    this.points = 2000;
-    this.level = 1;
+    this.points = 0;
     this.gameOver = false;
     this.gameOverSound = false;
+    this.displayTextScreen = "GO!";
+    this.level01 = "LEVEL 1";
+    this.level02 = "LEVEL 2";
+    this.levelBoss = "BOSS !!!";
+    
+    
   }
 
   setup() {
@@ -24,11 +30,14 @@ class Game {
     this.background.setup();
     this.player.setup();
     this.boss.setup();
-    themeMusic.setVolume(0.1);
+   
+    themeMusic.setVolume(0.2)
     themeMusic.play();
   }
 
   draw() {
+    
+    
     if (this.level == 3) {
       if (!bossMusic.isPlaying()) {
         themeMusic.pause();
@@ -38,12 +47,31 @@ class Game {
 
     console.log(this.points);
     console.log(this.level);
-    if (this.points > 3000) {
+    if (this.gameOver === true) {
+      fill(255);
+      this.displayTextScreen = "GAME OVER"
+    }
+    if(this.bossDead === true){
+      fill(255);
+      this.displayTextScreen = 
+      `Thank you for 
+      playing! 
+      And once again 
+      THANK YOU MIN!
+      NVT!!!`
+      
+  }
+
+    if (this.points > 1000 && this.level != 3) {
       this.level = 3;
-    } else if (this.points > 2000 && this.points < 3000) {
+      this.displayTextScreen = this.levelBoss;
+    } else if (this.points > 500 && this.points < 1000 && this.level != 2) {
       this.level = 2;
-    } else if (this.points > 1000 && this.points < 2000) {
+      this.displayTextScreen = this.level02;
+      
+    } else if (this.points > 0 && this.points < 500 && this.level != 1) {
       this.level = 1;
+      this.displayTextScreen = this.level01;
     }
 
     if (!this.invisible && !this.gameOver) {
@@ -143,7 +171,6 @@ class Game {
       a.remove();
       if (this.boss.health > 0 && this.boss.sprite.position.y > 0) {
         this.boss.health -= 1;
-
         let explode = new Explosion(b.position.x, b.position.y, 3);
         hitSound.setVolume(0.3);
         hitSound.play();
@@ -159,6 +186,7 @@ class Game {
         this.points += 1000;
         let explode = new Explosion(b.position.x, b.position.y, 10);
         explode.setup();
+        
       }
     });
     this.rocketsIn.collide(this.boss.sprite, (a, b) => {
@@ -245,32 +273,31 @@ class Game {
       this.power = true;
       setTimeout(() => {
         this.power = false;
-      }, 10000 / this.level);
+        this.points += 100;
+        this.createScore(b);
+      }, 12000 / this.level);
     });
     this.invisibilityIn.collide(this.player.sprite, (a, b) => {
       powerUpSound.setVolume(0.5);
       powerUpSound.play();
       a.remove();
       this.invisible = true;
+      this.points += 100;
+      this.createScore(b);
       setTimeout(() => {
         this.invisible = false;
-      }, 10000 / this.level);
+      }, 12000 / this.level);
     });
 
-    if (this.powersIn < 1) {
+    if (frameCount % Math.floor(Math.random() * 10 * 360) === 0) {
       this.createPower();
     }
-    if (this.invisibilityIn < 1) {
+    if (frameCount % Math.floor(Math.random() * 10 * 720) === 0) {
       this.createInvisibility();
     }
     if (this.level === 3) {
       this.boss.draw();
     }
-    // if (this.enemiesIn < 2) {
-    //   this.createEnemy();
-    // }
-    // if (
-    //   this.level < 3 &&
 
     if (
       this.level < 3 &&
@@ -281,8 +308,8 @@ class Game {
     this.background.draw();
     this.player.draw();
     this.enemiesIn.forEach(enemy => (enemy.position.y += this.level / 2)); //speed that they come from above yet to be polished
-    this.powersIn.forEach(power => (power.position.y += Math.random()));
-    this.invisibilityIn.forEach(inv => (inv.position.y += Math.random()));
+    this.powersIn.forEach(power => (power.position.y += this.level));
+    this.invisibilityIn.forEach(inv => (inv.position.y += this.level));
     this.enemiesIn.forEach(enemy => {
       if (
         frameCount %
@@ -322,6 +349,17 @@ class Game {
     this.bulletsIn.forEach(pulse => (pulse.position.y -= 3));
     this.rocketsIn.forEach(rocket => (rocket.position.y -= 3));
     this.bulletsEnIn.forEach(pulse => (pulse.position.y += 1 + this.level / 2));
+
+    if (this.displayTextScreen) {
+      fill(255);
+      text(this.displayTextScreen, WIDTH / 2, HEIGHT / 2);
+      // if(this.displayTextScreen === this.level01 || this.displayTextScreen === this.level02 || this.displayTextScreen === this.levelBoss)
+      setTimeout(() => {
+        this.displayTextScreen = "";
+      }, 3000);
+    }
+    this.score();
+    // this.updateScore(this.score);
   }
 
   keyPressed() {
@@ -422,4 +460,17 @@ class Game {
     this.scoresIn.add(score00);
     this.scoresIn.add(score1);
   }
+  score(){
+    fill(255);
+    text(`SCORE ${this.points}`, 650,20);
+    
+  }
+  // scoreDisplay(){
+    // updateScore(value){
+    //   parseInt(scoreElem.html().substring(value));
+    // }
+  //   score = createButton(this.points.toString());
+  //   score.position(0,300)
+  // }
 }
+

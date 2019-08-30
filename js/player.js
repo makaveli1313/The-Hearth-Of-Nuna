@@ -16,6 +16,7 @@ class Player {
     this.sprite.changeAnimation("idle");
     this.keyIsDown();
   };
+ 
 
   keyIsDown() {
     if (keyIsDown(37)) {
@@ -34,10 +35,12 @@ class Player {
     if (keyIsDown(38)) {
       if (this.sprite.position.y > 2) this.sprite.position.y -= this.velocity;
     }
-    // if (keyIsDown(16)) {
-    //   this.velocity = 4;
-    // } else {
-    //   this.velocity = 2;
+    // keyPressed(80){
+    //   noLoop();
+    // }
+    // keyPressed(219){
+    //   loop();
     // }
   }
+  
 }

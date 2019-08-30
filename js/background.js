@@ -6,9 +6,9 @@ class Background {
   }
 
   setup() {
-    this.bgDesert = loadImage("../assets/backgrounds/desert-backgorund.png"); // p5 function
+    this.bgDesert = loadImage("assets/backgrounds/desert-backgorund.png"); // p5 function
 
-    this.bgCloud = loadImage("../assets/backgrounds/clouds-transparent.png");
+    this.bgCloud = loadImage("assets/backgrounds/clouds-transparent.png");
   }
   draw() {
     this.yCloud = this.yCloud + 1;

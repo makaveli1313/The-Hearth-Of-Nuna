@@ -1,7 +1,7 @@
 class Boss {
   constructor() {}
   setup() {
-    this.health = 3;
+    this.health = 10;
     this.x = WIDTH / 2;
     this.y = -100;
     this.sprite = createSprite(this.x, this.y);

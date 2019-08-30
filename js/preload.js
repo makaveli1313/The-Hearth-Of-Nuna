@@ -19,7 +19,10 @@ let animationBoss,
   rocketSound,
   gameOverSound,
   themeMusic,
-  powerUpSound;
+  powerUpSound,
+  font,
+  fontSize,
+  scoreElem;
 
 const HEIGHT = 600;
 const WIDTH = 800;
@@ -133,4 +136,7 @@ function preload() {
   gameOverSound = loadSound("assets/Sounds/Retro-game-over-sound-effect.mp3");
   themeMusic = loadSound("assets/Music/Intergalactic Odyssey.ogg");
   bossMusic = loadSound("assets/Music/boss-fight.mp3");
+
+  font = loadFont("assets/Font/ARCADECLASSIC.TTF")
+  fontSize = 50;
 }
