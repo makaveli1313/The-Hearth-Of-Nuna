@@ -13,7 +13,7 @@ class Game {
     this.gameOverSound = false;
     this.displayTextScreen = "GO!";
     this.level01 = "LEVEL 1";
-    this.level02 = "LEVEL 2";
+    this.level02 = "LEVEL UP";
     this.levelBoss = "BOSS !!!";
     
     
@@ -111,7 +111,6 @@ class Game {
       });
     }
     if (!this.invisible && !this.gameOver) {
-      // }
       this.boss.bulletsInBoss4.collide(this.player.sprite, (a, b) => {
         a.remove();
         b.remove();
@@ -182,7 +181,6 @@ class Game {
         a.remove();
         b.remove();
         this.bossDead = true;
-        // this.createScore(b);
         this.points += 1000;
         let explode = new Explosion(b.position.x, b.position.y, 10);
         explode.setup();
@@ -204,7 +202,6 @@ class Game {
         a.remove();
         b.remove();
         this.bossDead = true;
-        // this.createScore(b);
         this.points += 1000;
         let explode = new Explosion(b.position.x, b.position.y, 10);
         explode.setup();
@@ -353,18 +350,15 @@ class Game {
     if (this.displayTextScreen) {
       fill(255);
       text(this.displayTextScreen, WIDTH / 2, HEIGHT / 2);
-      // if(this.displayTextScreen === this.level01 || this.displayTextScreen === this.level02 || this.displayTextScreen === this.levelBoss)
       setTimeout(() => {
         this.displayTextScreen = "";
       }, 3000);
     }
     this.score();
-    // this.updateScore(this.score);
   }
 
   keyPressed() {
     if (keyCode === 32 && !this.gameOver) {
-      // When the player dies want to stop shooting;
       if (!this.fired && !this.power) {
         pulseSound.setVolume(0.4);
         pulseSound.play();
@@ -383,7 +377,14 @@ class Game {
         }, 250);
       }
     }
+    if (keyCode === 80){
+      noLoop();
+    }
+    if(keyCode===219){
+      loop();
+    }
   }
+  
 
   createBullet() {
     let x = this.player.sprite.position.x;
@@ -465,12 +466,5 @@ class Game {
     text(`SCORE ${this.points}`, 650,20);
     
   }
-  // scoreDisplay(){
-    // updateScore(value){
-    //   parseInt(scoreElem.html().substring(value));
-    // }
-  //   score = createButton(this.points.toString());
-  //   score.position(0,300)
-  // }
 }
 

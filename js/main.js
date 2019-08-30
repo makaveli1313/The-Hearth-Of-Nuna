@@ -15,6 +15,7 @@ function draw() {
   game.draw();
   drawSprites();
   
+  
 }
 
 function keyPressed() {

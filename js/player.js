@@ -35,12 +35,7 @@ class Player {
     if (keyIsDown(38)) {
       if (this.sprite.position.y > 2) this.sprite.position.y -= this.velocity;
     }
-    // keyPressed(80){
-    //   noLoop();
-    // }
-    // keyPressed(219){
-    //   loop();
-    // }
+   
   }
   
 }
