@@ -16,7 +16,7 @@ class Player {
     this.sprite.changeAnimation("idle");
     this.keyIsDown();
   };
- 
+
 
   keyIsDown() {
     if (keyIsDown(37)) {

@@ -14,7 +14,7 @@ class Game {
     this.displayTextScreen = "GO!";
     this.level01 = "LEVEL 1";
     this.level02 = "LEVEL UP";
-    this.levelBoss = "BOSS !!!";
+    this.levelBoss = "THE BOSS";
     
     
   }
@@ -356,7 +356,14 @@ class Game {
         this.displayTextScreen = "";
       }, 3000);
     }
+
     this.score();
+
+    if(this.bossDead){
+   this.invisible = true;
+   setTimeout(() => {
+  this.player.sprite.position.y -=5
+}, 4000); }
   }
 
   keyPressed() {
@@ -432,21 +439,23 @@ class Game {
   }
 
   createPower() {
+    if(!this.bossDead){
     let x = random(32, width - 32);
     let y = -50;
     let newPower = createSprite(x, y);
     newPower.scale = 3;
     newPower.addAnimation("power", animationPower);
     this.powersIn.add(newPower);
-  }
+  }}
   createInvisibility() {
+    if(!this.bossDead){
     let x = random(32, width - 32);
     let y = -50;
     let newInv = createSprite(x, y);
     newInv.scale = 3;
     newInv.addAnimation("power", animationInvisibility);
     this.invisibilityIn.add(newInv);
-  }
+  }}
   createScore(player) {
     let x = player.position.x;
     let y = player.position.y;
